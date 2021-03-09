@@ -128,3 +128,44 @@ const handleClick=(e)=>{
     setName('Bala'); //change value with described function.
 }
 ```
+
+---
+
+## Props in React
+
+When we need to pass the data from the parent component to the child components we use props as a argumenst whil calling the component.
+
+- Parent component
+
+```js
+const Home = () => {
+    const [blogs,setBlog]=useState([{},{}
+    ])
+    return ( 
+        <div className="home">
+        
+          <BlogList blogs={blogs}/> <!-- sending as props -->
+        </div>
+       
+     );
+}
+```
+
+- Child component
+
+```js
+const BlogList = (props) => {
+    const blogs=props.blogs
+    return ( 
+        <div className="blog-list">
+             {blogs.map((blog)=>(
+               <div className="blog-preview" key={blog.id}>
+                   <h2>{blog.title}</h2>
+                   <p>{blog.author}</p>
+               </div>
+           ))}
+        </div>
+     );
+}
+ 
+```
