@@ -50,3 +50,81 @@ function App() {                    //component as a javascript function
 
 export default App;
 ```
+
+## Adding CSS
+
+- We can add css by importing the css file to the component file.
+
+- We can also add dynamic css using.
+
+```js
+import './index.css';
+
+const Home = () => {
+    return ( 
+        <h1 style={{
+            color:'blue',
+            backgroundColor:'black',
+            borderRadius:'8px'          //camelcasing is used insted of '-' 
+
+        }}>Home page</h1>
+     );
+}
+ 
+export default Home;
+```
+
+## Function and events
+
+- Since using '()' will invoke automatically while loading itself so we don't use () for calling.
+
+- For passing the arguments we need to wrap this with anonymous function to invike.  
+
+```js
+const Home = () => {
+
+    // function1
+    const handleClick=(e)=>{
+        console.log("hell yea")
+    }
+    // function2
+    const handleClicksub=(e,name)=>{
+        console.log('hello'+name)
+    }
+
+    return ( 
+        <div className="home">
+            <h1>Home page</h1>
+            {/* calling f1 */}
+            <button onClick={handleClick}>Click me</button>
+             {/* calling f2 */}
+            <button onClick={(e)=>{
+                handleClicksub(e,'hamlet')
+            }}>Sumbit</button>
+        </div>
+       
+     );
+}
+ 
+export default Home;
+```
+
+---
+
+## Changing the state
+
+When we use dynamic value or variable in the render the is problem with the state of the variable i.e, when the state of the variable changes (change the value) dose'nt change the render.
+
+- To change the render we need to use 'useState' package from react.
+
+```js
+import {useState } from 'react';
+
+const [name,setName] = useState("mario"); // declaring state variable.
+
+
+const handleClick=(e)=>{
+    console.log("hell yea")
+    setName('Bala'); //change value with described function.
+}
+```
