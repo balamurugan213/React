@@ -169,3 +169,111 @@ const BlogList = (props) => {
 }
  
 ```
+
+## Function as Props in React
+
+we can also pass function as props between parent and child
+
+- Parent component
+
+```js
+const Home = () => {
+const handleDelete=(id)=>{
+      const newBlog=blogs.filter(blog=>blog.id !== id);
+      setBlog(newBlog);
+    }
+
+    return ( 
+        <div className="home">
+          <BlogList blogs={blogs} title="ALL Blogs" handleDelete={handleDelete}/> // sending fumction as props
+        </div>
+       
+     );
+```
+
+- Child component
+
+```js
+const BlogList = ({blogs, title ,handleDelete}) => {
+
+    return ( 
+        <div className="blog-list">
+            <h2>{ title }</h2>
+             {blogs.map((blog)=>(
+               <div className="blog-preview" key={blog.id}>
+                   <h2>{blog.title}</h2>
+                   <p>Written by{blog.author}</p>
+                   <button onClick={()=>handleDelete(blog.id)} >Delete blog</button> //using the prop function
+               </div>
+           ))}
+        </div>
+     );
+}}
+ 
+```
+
+## Filters
+
+```js
+ <BlogList blogs={blogs.filter((blog)=>blog.author ==='mario')} title="Merio Blogs"/>
+```
+
+## UseEffects
+
+useEffects is a funct that runs every time when component re render.
+
+```js
+import {useState, useEffect } from 'react';
+
+useEffect(()=>{
+    console.log("use effots worsks")
+})
+
+```
+
+### Dependencies
+
+- To run the function only  on the initial render.
+
+```js
+import {useState, useEffect } from 'react';
+
+useEffect(()=>{
+    console.log("use effots worsks")
+},[])
+```
+
+- To run the function when state variable changes.Chanege in name variable will run the use effects
+
+```js
+import {useState, useEffect } from 'react';
+
+useEffect(()=>{
+    console.log("use effots worsks")
+},[name])
+```
+
+## Fetch data from the server
+
+```js
+useEffect(()=>{
+    fetch('http://localhost:8000/blogs').then(res=>{
+    return res.json();
+    }).then(data=>{
+    setBlog(data);
+    })
+},[])
+ return ( 
+        <div className="home">
+        {blogs && <BlogList blogs={blogs} title="ALL Blogs" handleDelete={handleDelete}/>}
+        </div>
+       
+     );
+
+```
+
+- to setup a local json server
+
+```cmd
+npx json-server --watch data/db.json --port 8000
+```
